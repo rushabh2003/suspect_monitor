@@ -1,4 +1,10 @@
+import os.path
+import os
+import re
+from alert_sender import send_email_async, send_all_at_once
 import cv2
+from pathlib import Path
+from datetime import datetime
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 from PIL import Image, ImageTk
@@ -159,6 +165,9 @@ class FaceDetectionApp:
         self.is_processing_video = False
         if self.video_capture:
             self.video_capture.release()
+        print(f"Sending all the detected faces snapshots. Don't close the window")
+        send_all_at_once()
+
         self.start_video_button.config(state=tk.NORMAL)
         self.stop_video_button.config(state=tk.DISABLED)
         self.video_label.configure(image=None)
@@ -206,6 +215,26 @@ class FaceDetectionApp:
                 if duration > self.presence_limit.get():
                     color = (0, 0, 255)
                     cv2.putText(frame, "ALERT: Too long!", (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, color, 2)
+                    datetime_string = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+                    img_name = f"detected_images/Detected_ID-{self.face_id_counter}@{datetime_string}.png"
+                    pattern = re.compile(rf"^Detected_ID-{self.face_id_counter}.*\.png$")
+                    directory = "detected_images/"
+                    det_img_path = Path(directory)
+
+                    if not det_img_path.exists():
+                        print("Making directory")
+                        os.makedirs("detected_images")
+
+                    found = False
+                    for img_path in det_img_path.glob("*.png"):
+                        if pattern.match(img_path.name):  # If a matching image is found
+                            found = True
+                            break  # Exit loop if we find a matching file
+
+                    if not found:
+                        print("Writing image")
+                        cv2.imwrite(img_name, frame)  # Save the image with the unique filename
+                        print(f"Saved: {img_name}")
 
                 cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
                 cv2.putText(frame, f"ID {matched_id} | {duration:.1f}s", (x, y + h + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
