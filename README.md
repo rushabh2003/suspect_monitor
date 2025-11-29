@@ -4,15 +4,21 @@
 
 ## **Sample Results**
 
+### **Application UI**
 <div align="center">
-  <img width="640" height="480" alt="Detected_ID-4@2025-11-28 20-32-42" src="https://github.com/user-attachments/assets/f5440f49-4ad8-48e0-8d0c-f9dd1ea565f7" />
-  <p><i>Detecting the faces</i></p>  
+  <img width="1000" height="1041" alt="Advanced Face Detection with Presence Tracking 28-11-2025 21_15_04" src="https://github.com/user-attachments/assets/937bdeba-2e3f-4c32-89fa-66b00495251f" />
 </div>
 
+### **Detecting the faces**
+<div align="center">
+  <img width="640" height="480" alt="Detected_ID-4@2025-11-28 20-32-42" src="https://github.com/user-attachments/assets/f5440f49-4ad8-48e0-8d0c-f9dd1ea565f7" />
+</div>
+
+### **Sending alerts to the Admin via Gmail along with snapshots attachment**
 <div align="center">
   <img width="1478" height="390" alt="Email Screenshot" src="https://github.com/user-attachments/assets/af835385-b59e-4ab6-b9b8-1547a060c26d" />
-  <p><i>Sending alerts to the Admin via Gmail along with snapshots attachment</i></p>
 </div>
+
 
 
 
